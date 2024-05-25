@@ -1,0 +1,1 @@
+docker exec -it demo_pg bash
