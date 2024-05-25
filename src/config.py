@@ -1,4 +1,5 @@
 import os
+import uuid
 
 import dotenv
 
@@ -15,4 +16,9 @@ DB_HOST = os.getenv('DB_HOST', '127.0.0.1')
 DB_PORT = int(os.getenv('DB_PORT', 5432))
 DB_DATABASE = os.getenv('DB_DATABASE', 'postgres')
 DB_URL = f'postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}'
-print(DB_URL)
+
+GITHUB_CLIENT_ID = os.getenv('GITHUB_CLIENT_ID')
+GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
+
+# Random secret if not passed
+JWT_ACCESS_TOKEN_SECRET = os.getenv('JWT_ACCESS_TOKEN_SECRET', uuid.uuid4().hex)

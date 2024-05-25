@@ -25,3 +25,6 @@ class UserRepo(SQLAAbstractRepo):
             select(UserModel).where(UserModel.github_id == gh_id)
         )
         return fetched_user
+
+    async def list(self) -> list[UserModel]:
+        return await self._session.scalars(select(UserModel))

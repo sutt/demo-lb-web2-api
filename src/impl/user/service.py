@@ -31,3 +31,19 @@ class UserService(UserServiceABC):
             if not fetched_user:
                 raise UserNotFound
             return UserSchema.model_validate(fetched_user)
+
+    async def get_by_github_id_or_create(self, gh_id: int) -> UserSchema:
+        async with SessionScope.get_session() as session:
+            user_repo = UserRepo(session)
+            fetched_user = await user_repo.get_user_by_github_id(gh_id)
+            if not fetched_user:
+                fetched_user = await user_repo.create_user(UserCreateDTO(github_id=gh_id))
+                await session.commit()
+            return UserSchema.model_validate(fetched_user)
+
+    async def list_users(self) -> list[UserSchema]:
+        async with SessionScope.get_session() as session:
+            return [
+                UserSchema.model_validate(fetched_user)
+                for fetched_user in await UserRepo(session).list()
+            ]

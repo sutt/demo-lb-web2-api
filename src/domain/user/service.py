@@ -16,3 +16,11 @@ class UserServiceABC(ABC):
     @abstractmethod
     async def get_by_github_id(self, gh_id: int) -> UserSchema:
         raise NotImplementedError
+
+    @abstractmethod
+    async def get_by_github_id_or_create(self, gh_id: int) -> UserSchema:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def list_users(self) -> list[UserSchema]:
+        raise NotImplementedError

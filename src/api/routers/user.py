@@ -6,7 +6,7 @@ from domain.user.exceptions import UserNotFound
 from domain.user.schemas import UserSchema, UserCreateDTO
 
 from ..dependencies.types import UserServiceDep
-from ..exceptions import BadRequestException, NotFoundException
+from ..exceptions.http import BadRequestException, NotFoundException
 from ..schemas.exceptions import HTTPExceptionSchema
 
 
@@ -26,7 +26,7 @@ async def create_user(gh_id: int, user_service: UserServiceDep):
 @router.get(
     '/',
     status_code=status.HTTP_200_OK,
-    response_model=UserSchema,
+    response_model=UserSchema | list[UserSchema],
     responses={
         status.HTTP_404_NOT_FOUND: {'model': HTTPExceptionSchema},
         status.HTTP_400_BAD_REQUEST: {'model': HTTPExceptionSchema}
@@ -38,7 +38,7 @@ async def get_user(
     github_id: int | None = Query(None)
 ):
     if not any([user_id, github_id]):
-        raise BadRequestException('Neither user_id nor github_id was passed.')
+        return await user_service.list_users()
 
     try:
         if user_id:
