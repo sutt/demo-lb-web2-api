@@ -5,7 +5,7 @@ from .abstract import (
     TimestampedTable
 )
 
-from .users import User
+from .users import UserModel
 
 
 __all__ = [
@@ -13,5 +13,5 @@ __all__ = [
     'CreatedAtTimestamp',
     'ModifiedAtTimestamp',
     'TimestampedTable',
-    'User'
+    'UserModel'
 ]
