@@ -5,7 +5,7 @@ from fastapi import APIRouter, status, Query
 from domain.user.exceptions import UserNotFound
 from domain.user.schemas import UserSchema, UserCreateDTO
 
-from ..dependencies.types import UserServiceDep
+from ..dependencies.types import UserServiceDep, GetAuthenticatedUserDep
 from ..exceptions.http import BadRequestException, NotFoundException
 from ..schemas.exceptions import HTTPExceptionSchema
 
@@ -47,3 +47,14 @@ async def get_user(
             return await user_service.get_by_github_id(github_id)
     except UserNotFound:
         raise NotFoundException('User not found.')
+
+
+@router.get(
+    '/me',
+    response_model=UserSchema,
+    responses={
+        status.HTTP_401_UNAUTHORIZED: {'model': HTTPExceptionSchema}
+    }
+)
+async def get_authenticated_user(user: GetAuthenticatedUserDep):
+    return user
