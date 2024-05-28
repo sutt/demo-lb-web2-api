@@ -2,8 +2,7 @@ import uuid
 import datetime
 from typing import TypeVar, Any
 
-from pydantic import BaseModel, ConfigDict, Extra
-
+from pydantic import BaseModel, ConfigDict, Extra, model_validator
 
 Model = TypeVar('Model', bound='BaseModel')
 
@@ -35,3 +34,12 @@ class ModifiedAtField(DomainSchema):
 
 class TimestampedSchema(CreatedAtField, ModifiedAtField):
     pass
+
+
+class UpdateRequestSchema(DomainSchema):
+    @model_validator(mode="after")
+    def check_if_not_all_fields_are_none(self) -> "UpdateRequestSchema":
+        if self.model_dump(exclude_unset=True) == {}:
+            msg = "At least one updatable field has to be passed."
+            raise ValueError(msg)
+        return self

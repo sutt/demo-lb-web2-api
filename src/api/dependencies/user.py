@@ -15,7 +15,7 @@ def get_service() -> UserServiceABC:
     return UserService()
 
 
-def di_user(app: FastAPI):
+def di_user(app: FastAPI) -> None:
     app.dependency_overrides[UserServiceABC] = get_service
 
 

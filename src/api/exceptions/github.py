@@ -5,3 +5,11 @@ class GithubException(Exception):
 
 class CouldNotFetchGithubUser(GithubException):
     pass
+
+
+class CouldNotFetchGithubIssue(GithubException):
+    pass
+
+
+class GithubIssueNotFound(GithubException):
+    pass

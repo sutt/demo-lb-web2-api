@@ -1,3 +1,21 @@
+# Lightning Bounties Demo
+
+The purpose of this demo app is to showcase the basic functionality of the Lightning Bounties service.
+The demo functionality includes
+- GitHub auth
+- Interaction with repositories using GitHub Actions
+- Rewarding functionality using demo-points
+
+#### Constraints
+
+- Repositories never change their name, owner, etc
+- Issues never change their name and never be deleted
+
+#### Problems
+Since GitHub issues are not bound by the constraints above and doesn't notify LB
+about its changes, the data in the LB's database may lose its actuality
+
+
 ### Quickstart
 
 #### Dockerized App + Dockerized Postgres (no Compose)
@@ -7,12 +25,12 @@ Run two containers, one for the FastAPI app and one for the Postgres database. W
     ```bash
     docker pull postgres
     ```
-1. Create a docker network
+2. Create a docker network
 This will allow the containers to communicate with each other.
     ```bash
     docker network create demo-network
     ```
-1. Start the Postgres container
+3. Start the Postgres container
 You can run the `./scripts/run_pg.bat` script which is
     ```bash
     docker run --name demo_pg \ # important to keep this static since it's passed in run command to fastapi app
@@ -22,17 +40,17 @@ You can run the `./scripts/run_pg.bat` script which is
     -p '5432:5432' \ # note double quotes for bat, single for bash
     -d postgres
     ```
-1. Verify postgres is running and can create connection
+4. Verify postgres is running and can create connection
     ```bash
     psql -h localhost -p 5432 -U postgres -d demo_db
     ```
     password: `demopassword`
-1. Build the FastAPI image
+5. Build the FastAPI image
     ```bash
     docker build -t pavel-gh-2 .
     ```
     Currently `scripts/` is copied in the image (i think) but is not nec.
-1. Start the FastAPI container
+6. Start the FastAPI container
     ```bash
     docker run -d \
     -p 8000:8000 \

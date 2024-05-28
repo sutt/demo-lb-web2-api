@@ -6,6 +6,7 @@ from .abstract import (
 )
 
 from .users import UserModel
+from .rewards import RewardModel
 
 
 __all__ = [
@@ -13,5 +14,6 @@ __all__ = [
     'CreatedAtTimestamp',
     'ModifiedAtTimestamp',
     'TimestampedTable',
-    'UserModel'
+    'UserModel',
+    'RewardModel'
 ]
