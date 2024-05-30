@@ -15,7 +15,7 @@ def get_jwt_token(authorization: Annotated[HTTPAuthorizationCredentials, Depends
         raise UnauthorizedException(msg)
 
     try:
-        return authorization.credentials.split()[1]  # Removes "Bearer" keyword
+        return authorization.credentials
     except IndexError:
         raise UnauthorizedException("Invalid token format. The proper format is 'Bearer {your_token}'.")
 
