@@ -28,3 +28,9 @@ class UserRepo(SQLAAbstractRepo):
 
     async def list(self) -> list[UserModel]:
         return await self._session.scalars(select(UserModel))
+
+    async def add_points(self, user_id: UUID, points: int) -> UserModel:
+        user = await self._session.scalar(select(UserModel).where(UserModel.id == user_id))
+        user.points += points
+        self._session.add(user)
+        return user

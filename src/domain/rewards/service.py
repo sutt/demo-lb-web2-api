@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from uuid import UUID
 
-from .schemas import CreateRewardDTO, RewardSchema, UpdateRewardDTO
+from .schemas import CreateRewardDTO, RewardSchema, UpdateRewardDTO, RewardResultSchema
 
 
 class RewardServiceABC(ABC):
@@ -26,4 +26,11 @@ class RewardServiceABC(ABC):
     ) -> RewardSchema:
         raise NotImplementedError
 
-
+    @abstractmethod
+    async def reward_contributor(
+        self,
+        contributor_id: UUID,
+        repo_full_name: str,
+        issue_numbers: list[int]
+    ) -> RewardResultSchema:
+        raise NotImplementedError

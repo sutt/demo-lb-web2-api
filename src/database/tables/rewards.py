@@ -15,8 +15,7 @@ class RewardModel(IdentifiableTable, TimestampedTable):
 
     # TODO: Move issues to another table and link to here by foreign key
     issue_github_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    issue_github_owner: Mapped[str] = mapped_column(nullable=False)
-    issue_github_repo: Mapped[str] = mapped_column(nullable=False)
+    repo_full_name: Mapped[str] = mapped_column(nullable=False)
     issue_github_number: Mapped[int] = mapped_column(BigInteger, nullable=False)
 
     html_url: Mapped[str | None] = mapped_column(nullable=True)
