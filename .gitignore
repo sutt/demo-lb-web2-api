@@ -137,3 +137,5 @@ static/
 
 #alembic
 alembic.ini
+
+.vscode

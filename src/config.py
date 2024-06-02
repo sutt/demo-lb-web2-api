@@ -22,3 +22,7 @@ GITHUB_CLIENT_SECRET = os.getenv('GITHUB_CLIENT_SECRET')
 
 # Random secret if not passed
 JWT_ACCESS_TOKEN_SECRET = os.getenv('JWT_ACCESS_TOKEN_SECRET', uuid.uuid4().hex)
+
+LNBITS_BASE_URL = os.getenv('LNBITS_BASE_URL')
+LNBITS_INVOICE_KEY = os.getenv('LNBITS_INVOICE_KEY')
+LNBITS_CALLBACK_SECRET = os.getenv('LNBITS_CALLBACK_SECRET', uuid.uuid4().hex)
